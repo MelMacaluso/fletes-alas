@@ -7,7 +7,9 @@ function default_register_post_type( $singular_name, $plural_name, $args = [], $
 		'supports' => array( 'title', 'custom-fields' ),
 	), $args );
 
-	register_post_type( str_replace( ' ', '_', strtolower( $singular_name ) ), $args );
+	add_action( 'init', function() use ( $singular_name, $args ) {
+		register_post_type( str_replace( ' ', '_', strtolower( $singular_name ) ), $args );
+	} );
 }
 
 function default_get_post_type_labels( $singular_name, $plural_name, $override = [] ) {

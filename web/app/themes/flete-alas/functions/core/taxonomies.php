@@ -1,6 +1,6 @@
 <?php
 
-function deafult_register_taxonomy( $singular_name, $plural_name, $object_type, $args = [], $labels = [] ) {
+function default_register_taxonomy( $singular_name, $plural_name, $object_type, $args = [], $labels = [] ) {
 	$args = array_merge( array(
 		'labels'             => default_get_taxonomy_labels( $singular_name, $plural_name, $labels ),
 		'publicly_queryable' => false,
@@ -8,7 +8,9 @@ function deafult_register_taxonomy( $singular_name, $plural_name, $object_type, 
 		'show_admin_column'  => true
 	), $args );
 
-	register_taxonomy( str_replace( ' ', '_', strtolower( $singular_name ) ), $object_type, $args );
+	add_action( 'init', function() use ( $singular_name, $object_type, $args ) {
+		register_taxonomy( str_replace( ' ', '_', strtolower( $singular_name ) ), $object_type, $args );
+	}, 30 );
 }
 
 function default_get_taxonomy_labels( $singular_name, $plural_name, $override = [] ) {
@@ -30,4 +32,3 @@ function default_get_taxonomy_labels( $singular_name, $plural_name, $override = 
 		'not_found'                  => "No $plural_name found.",
 	), $override );
 }
-

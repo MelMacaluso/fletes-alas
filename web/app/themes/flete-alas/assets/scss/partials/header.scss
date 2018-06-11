@@ -1,0 +1,38 @@
+.header {
+    .header__menu {
+        @apply .fixed .flex .flex-grow .pin-y .-pin-r-full .min-w-screen-33 .pt-12 .bg-grey-dark .shadow-md .z-10 .transition-right--ease-in;
+        @screen md {
+            @apply .relative .min-w-none .pin-none .pt-0 .bg-transparent .shadow-none;
+        }
+        ul {
+            @apply .flex .flex-col .list-reset;
+            @screen md {
+                @apply .flex-row;
+            }
+            li {
+                @apply .mx-2 .mb-2;
+                @screen md {
+                    @apply .mb-0;
+                }
+                a {
+                    @apply .text-white;
+                    @screen md {
+                        @apply .text-grey-darker
+                    }
+                }
+            }
+        }
+    }
+    a {
+        @apply .no-underline;
+    }
+    .header__burger {
+        @apply .flex;
+        @screen md {
+            @apply .hidden;
+        }
+        a {
+            @apply .px-2 .py-1 .rounded .border .border-grey-dark;
+        }
+    }
+}

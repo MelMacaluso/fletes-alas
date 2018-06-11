@@ -531,6 +531,7 @@ module.exports = {
     '48': '12rem',
     '64': '16rem',
     'full': '100%',
+    'screen-80': '80vh',
     'screen': '100vh'
   },
 
@@ -550,7 +551,9 @@ module.exports = {
   */
 
   minWidth: {
+    'none': 'none',
     '0': '0',
+    'screen-33': '33vw',
     'full': '100%',
   },
 
@@ -571,6 +574,7 @@ module.exports = {
 
   minHeight: {
     '0': '0',
+    '8': '2rem',
     'full': '100%',
     'screen': '100vh'
   },
@@ -649,6 +653,7 @@ module.exports = {
     '4': '1rem',
     '6': '1.5rem',
     '8': '2rem',
+    '12': '3rem'
   },
 
 
@@ -677,6 +682,7 @@ module.exports = {
     '4': '1rem',
     '6': '1.5rem',
     '8': '2rem',
+    '12': '3rem'
   },
 
 
@@ -703,7 +709,7 @@ module.exports = {
     '3': '0.75rem',
     '4': '1rem',
     '6': '1.5rem',
-    '8': '2rem',
+    '8': '2rem'
   },
 
 

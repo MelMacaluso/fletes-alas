@@ -2,7 +2,8 @@
 
 function setup() {
 	register_nav_menus( [
-		'primary_navigation' => 'Primary Navigation'
+		'primary_navigation' => 'Primary Navigation',
+		'footer_navigation' => 'Footer Navigation'
 	] );
 }
 
