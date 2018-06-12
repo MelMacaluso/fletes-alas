@@ -13,5 +13,5 @@ const MainApp = new Vue({
 })
 
 
-require('./utils')
-require('./header')
+// require('./utils')
+// require('./header')
