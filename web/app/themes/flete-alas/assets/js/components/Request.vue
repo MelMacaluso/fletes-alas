@@ -22,7 +22,7 @@ export default {
   methods: {
     mockRequest() {
       axios
-        .post("http://localhost:3030/leads/send_sms_notification", {
+        .post("http://server.flete-alas.com:3030/leads/send_sms_notification", {
           name: this.name,
           email: this.email,
           enquiry: this.enquiry
