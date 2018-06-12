@@ -10,7 +10,7 @@ function setup() {
 add_action( 'after_setup_theme', 'setup' );
 
 function assets() {
-	wp_enqueue_style( 'css', asset_path( 'public/css/main.css' ) );
+	wp_enqueue_style( 'css', asset_path( 'public/css/main.css' ), [], false);
 	wp_enqueue_script( 'js', asset_path( 'public/js/main.js' ), [], false, true );
 }
 
