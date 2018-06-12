@@ -15,3 +15,4 @@ mix.js('assets/js/main.js', 'public/js/main.js')
             match: ['**/*.php', 'assets/**/*.js', 'assets/**/*.css', 'public/css/*.css'],
         }]
     })
+    

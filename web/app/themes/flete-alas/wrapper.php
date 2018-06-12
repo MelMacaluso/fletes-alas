@@ -10,7 +10,7 @@ do_action( 'get_header' );
 get_template_part( 'partials/layout/header' );
 ?>
 
-<main class="h-screen-80 font-sans">
+<main class="h-screen-80 font-sans" id="MainApp">
 	<?php include template_path(); ?>
 </main>
 
