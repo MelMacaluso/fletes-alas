@@ -11,9 +11,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use((req, res, next) => {
-  console.debug(`DEBUG originalUrl: ${req.originalUrl}`)
+  console.log(`DEBUG originalUrl: ${req.originalUrl}`)
   next()
 })
+
 app.use(function (req, res, next) {
   // This needs to be restricted in the future, can't allow random CORS
   res.header("Access-Control-Allow-Origin", "*");
@@ -22,7 +23,7 @@ app.use(function (req, res, next) {
 });
 
 app.use((req, res, next) => {
-  console.debug(`DEBUG originalUrl: ${req.originalUrl}`)
+  console.log(`DEBUG originalUrl: ${req.originalUrl}`)
   next()
 })
 
@@ -31,4 +32,4 @@ app.get('/', function(req, res){
   res.send("Hello World!");
 });
 
-app.listen(3000);
+app.listen(3000, ()=> console.log('up and running my baby'));
