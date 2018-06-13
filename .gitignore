@@ -20,3 +20,4 @@ vendor/*
 !vendor/.gitkeep
 
 .idea
+web/app/themes/flete-alas/server/NGINX_REVERS_PROXY_WORKING
