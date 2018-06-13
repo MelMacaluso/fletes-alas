@@ -32,4 +32,4 @@ app.get('/diobrando', function(req, res){
   res.send("Hello World!");
 });
 
-app.listen(8080, ()=> console.log('up and running my baby'));
+app.listen(8080, ()=> console.log('up and running my baby on port 8080'));
