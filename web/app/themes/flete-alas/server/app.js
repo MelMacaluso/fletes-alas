@@ -2,8 +2,8 @@
 require('dotenv').config({path: '../../../../../.env'});
 
 // Twilio Credentials 
-var accountSid = process.env.TEST_ACCOUNTSID;
-var authToken = process.env.TEST_AUTHTOKEN;
+var accountSid = process.env.ACCOUNTSID;
+var authToken = process.env.AUTHTOKEN;
 
 // Twilio 
 var twilio = require('twilio');
