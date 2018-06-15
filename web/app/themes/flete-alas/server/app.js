@@ -1,5 +1,15 @@
 // Utils 
-require('dotenv').config()
+require('dotenv').config({path: '../../../../../.env'});
+
+// Twilio Credentials 
+var accountSid = process.env.TEST_ACCOUNTSID;
+var authToken = process.env.TEST_AUTHTOKEN;
+
+// Twilio 
+var twilio = require('twilio');
+var client = new twilio(accountSid, authToken);
+const TwilioSMS = require('./twilio/TwilioSMS');
+
 
 // Server setup
 const express = require('express')
@@ -28,8 +38,8 @@ app.use((req, res, next) => {
 })
 
 
-app.get('/diobrando', function(req, res){
-  res.send("Hello World!");
+app.use('/sendSMS', function(req, res){
+  TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.TO_NUMBER, req.body, res);
 });
 
 app.listen(8080, ()=> console.log('up and running my baby on port 8080'));

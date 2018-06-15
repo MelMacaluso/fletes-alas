@@ -4,6 +4,7 @@ require('laravel-mix-tailwind');
 require('dotenv').config({path: '../../../../.env'});
 
 mix.js('assets/js/main.js', 'public/js/main.js')
+    // .js('server/app.js', 'server/dist/app.js') // compile the server files separately
     .sass('assets/scss/main.scss', 'public/css')
     .tailwind()
     .copy('assets/fonts', 'public/fonts')

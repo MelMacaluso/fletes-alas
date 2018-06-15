@@ -21,3 +21,5 @@ vendor/*
 
 .idea
 web/app/themes/flete-alas/server/NGINX_REVERS_PROXY_WORKING
+web/app/themes/flete-alas/server/NGINX_SSL_CIPHER_SSL_WORKING
+web/app/themes/flete-alas/server/flete-alas.local.nginx.conf
