@@ -20,6 +20,5 @@ const MainApp = new Vue({
     el: '#MainApp'
 })
 
-
 // require('./utils')
 // require('./header')

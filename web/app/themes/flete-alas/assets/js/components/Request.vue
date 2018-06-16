@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto">
-      <div class="relative max-w-sm mx-auto h-84">
+      <div class="relative max-w-sm mx-auto h-96">
         <transition name="fade">
             <form v-if="!submitted">
                 <div class="flex flex-wrap -mx-4">
@@ -15,6 +15,12 @@
                         <transition name="fade">
                             <span class="absolute pin-t pin-l ml-4 mt-1 text-sm text-red-light" v-if="errors.has('tel')">Corregir el siguente error:</span>
                         </transition>
+                    </div>
+                    <div class="relative w-1/2 px-2 mt-4">
+                        <input ref="from" v-validate="'email'" name="email" type="email" placeholder="Desde" class="w-full border rounded p-5 border-grey-dark">
+                    </div>
+                    <div class="relative w-1/2 px-2 mt-4">
+                        <input ref="to" v-validate="'email'" name="email" type="email" placeholder="Hasta" class="w-full border rounded p-5 border-grey-dark">
                     </div>
                     <div class="relative w-1/2 px-2 mt-4">
                         <input v-validate="'email'" name="email" type="email" placeholder="Email" :class="[ 'w-full border rounded p-5', errors.has('email') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="email">
@@ -44,12 +50,15 @@
   </div>
 </div>
 </template>
+
 <script>
 import axios from "axios";
 
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/themes/airbnb.css";
 import "flatpickr/dist/flatpickr.css";
+
+import {MainApp} from '../main.js';
 
 export default {
   data: () => ({
@@ -88,6 +97,10 @@ export default {
     sendNotification() {
       this.submitted = !this.submitted;
     }
+  },
+    mounted() {
+      new google.maps.places.Autocomplete(this.$refs.from, {componentRestrictions:{country:'ar'}}); // restrict to argentina
+      new google.maps.places.Autocomplete(this.$refs.to , {componentRestrictions:{country:'ar'}}); // restrict to argentina
   }
 };
 </script>
