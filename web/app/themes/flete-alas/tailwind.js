@@ -194,6 +194,7 @@ module.exports = {
 
   fonts: {
     'sans': [
+      'IBM Plex Sans',
       'system-ui',
       'BlinkMacSystemFont',
       '-apple-system',
@@ -575,6 +576,8 @@ module.exports = {
   minHeight: {
     '0': '0',
     '8': '2rem',
+    '16': '4rem',
+    '32': '8rem',
     'full': '100%',
     'screen': '100vh'
   },
@@ -596,6 +599,7 @@ module.exports = {
   */
 
   maxWidth: {
+    'xxs': '10rem',
     'xs': '20rem',
     'sm': '30rem',
     'md': '40rem',
@@ -873,7 +877,7 @@ module.exports = {
     pointerEvents: ['responsive'],
     position: ['responsive'],
     resize: ['responsive'],
-    shadows: ['responsive'],
+    shadows: ['responsive','hover'],
     svgFill: [],
     svgStroke: [],
     textAlign: ['responsive'],
