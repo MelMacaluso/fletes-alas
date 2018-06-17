@@ -25,5 +25,5 @@
         </div>
 
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC82EJoXulwe1sfAMZtzVF4Zkzs_TJu6o&sensor=false&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC82EJoXulwe1sfAMZtzVF4Zkzs_TJu6o&libraries=places"></script>
 </footer>

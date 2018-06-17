@@ -1,31 +1,31 @@
 <template>
     <div class="container mx-auto">
-      <div class="relative max-w-sm mx-auto h-96">
+      <div class="relative max-w-sm mx-auto h-128">
         <transition name="fade">
-            <form v-if="!submitted">
+            <form v-show="!submitted" @submit.prevent="sendNotification">
                 <div class="flex flex-wrap -mx-4">
                     <div class="relative w-1/2 px-2 mt-4">
-                        <input v-validate="'required|alpha'" name="name" type="text" placeholder="Nombre" :class="[ 'w-full border rounded p-5', errors.has('name') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="name">
+                        <input v-validate="'required|alpha_spaces'" name="name" autocomplete='name' type="text" placeholder="Nombre" :class="[ 'w-full border rounded p-5', errors.has('name') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="name">
                         <transition name="fade">
-                            <span class="absolute pin-t pin-l ml-4 mt-1 text-sm text-red-light" v-if="errors.has('name')">Corregir el siguente error:</span>
+                            <span class="absolute pin-t pin-l ml-4 mt-1 text-xs text-red-light" v-if="errors.has('name')">Corrige tu nombre</span>
                         </transition>
                     </div>
                     <div class="relative w-1/2 px-2 mt-4">
-                        <input v-validate="'required|numeric|min:6|max:14'" name="tel" type="text" placeholder="Telefono/Mobil" :class="[ 'w-full border rounded p-5', errors.has('tel') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="tel">
+                        <input v-validate="'required|numeric|min:6|max:14'" name="tel" autocomplete='tel' type="text" placeholder="Telefono/Mobil" :class="[ 'w-full border rounded p-5', errors.has('tel') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="tel">
                         <transition name="fade">
-                            <span class="absolute pin-t pin-l ml-4 mt-1 text-sm text-red-light" v-if="errors.has('tel')">Corregir el siguente error:</span>
+                            <span class="absolute pin-t pin-l ml-4 mt-1 text-xs text-red-light" v-if="errors.has('tel')">Corrige tu telefono:</span>
                         </transition>
                     </div>
                     <div class="relative w-1/2 px-2 mt-4">
-                        <input ref="from" v-validate="'email'" name="email" type="email" placeholder="Desde" class="w-full border rounded p-5 border-grey-dark">
+                        <input ref="from" name="address" autocomplete='street-address' type="text" placeholder="Desde" class="w-full border rounded p-5 border-grey-dark">
                     </div>
                     <div class="relative w-1/2 px-2 mt-4">
-                        <input ref="to" v-validate="'email'" name="email" type="email" placeholder="Hasta" class="w-full border rounded p-5 border-grey-dark">
+                        <input ref="to" name="address" autocomplete='street-address' type="text" placeholder="Hasta" class="w-full border rounded p-5 border-grey-dark">
                     </div>
                     <div class="relative w-1/2 px-2 mt-4">
-                        <input v-validate="'email'" name="email" type="email" placeholder="Email" :class="[ 'w-full border rounded p-5', errors.has('email') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="email">
+                        <input v-validate="'email'" name="email" autocomplete='email' type="email" placeholder="Email" :class="[ 'w-full border rounded p-5', errors.has('email') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="email">
                         <transition name="fade">
-                            <span class="absolute pin-t pin-l ml-4 mt-1 text-sm text-red-light" v-if="errors.has('email')">Corregir el siguente error:</span>
+                            <span class="absolute pin-t pin-l ml-4 mt-1 text-xs text-red-light" v-if="errors.has('email')">Corrige tu email</span>
                         </transition>
                     </div>
                     <div class="w-1/2 px-2 mt-4">
@@ -43,13 +43,33 @@
                   </div>
               </div>
           </form>
-          <div v-else class="absolute pin m-auto flex flex-col justify-center text-center">
-              <p class="bg-grey-light text-lg text-black rounded shadow px-2 py-4">Gracias, un fletero te va a contactar al mas pronto para organisar tu mudanza.</p>
+        </transition>
+        <transition name="fade">
+          <div v-show="submitted" class="absolute pin m-auto flex flex-col justify-center text-center">
+            <p class="bg-white text-lg text-black rounded shadow-lg px-2 py-4">Gracias, un fletero te va a contactar al mas pronto para organisar tu mudanza.</p>
+              <div ref="animationWrapper" class="flex flex-col justify-end relative h-32 mb-4 border-b overflow-hidden fading-out">
+                  <div ref="truck" class="absolute sliding" style="left:33%;">
+                      <i class="fas fa-truck text-white text-10xl text-shadow"></i>
+                  </div>
+                  <div ref="envelope" class="absolute sliding pb-8" style="left:0;">
+                      <i class="fas fa-envelope text-orange-light text-5xl text-shadow"></i>
+                  </div>
+              </div>
           </div>
-      </transition>
+        </transition>
   </div>
 </div>
 </template>
+
+<style scoped>
+.sliding {
+  transition: 2s left ease-out;
+}
+.fading-out {
+  transition: 1s border-color ease-out;
+}
+
+</style>
 
 <script>
 import axios from "axios";
@@ -57,8 +77,6 @@ import axios from "axios";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/themes/airbnb.css";
 import "flatpickr/dist/flatpickr.css";
-
-import {MainApp} from '../main.js';
 
 export default {
   data: () => ({
@@ -79,28 +97,54 @@ export default {
     flatPickr
   },
   methods: {
+    envelopeTruckAnimation() {
+      setTimeout(() => {
+        this.$refs.envelope.style.left = "calc(33% + 0.75em)";
+      }, 500);
+      setTimeout(() => {
+        this.$refs.envelope.style.left = "150%";
+        this.$refs.truck.style.left = "150%";
+      }, 2750);
+      setTimeout(() => {
+        this.$refs.animationWrapper.classList.remove('border-white');
+        this.$refs.animationWrapper.classList.add('border-transparent');
+      }, 3000);
+    },
     sendSMS() {
       console.log("sms Sent");
-      //    axios
-      //    .post("/sendSMS", {
+      //   axios
+      //     .post("/sendSMS", {
       //       name: this.name,
-      //       email: this.email,
-      //       enquiry: this.enquiry
-      //   })
-      //    .then(function(response) {
+      //       //email: this.email,
+      //       enquiry: this.enquiry,
+      //       tel: this.tel,
+      //       from: this.$refs.from.value,
+      //       to: this.$refs.to.value,
+      //       date: this.date
+      //     })
+      //     .then(function(response) {
       //       console.log(response);
-      //   })
-      //    .catch(function(error) {
+      //     })
+      //     .catch(function(error) {
       //       console.log(error);
-      //   });
+      //     });
     },
     sendNotification() {
-      this.submitted = !this.submitted;
+      if (this.name != "") {
+        // name is required so that'd do
+        this.submitted = !this.submitted;
+        this.sendSMS();
+        this.envelopeTruckAnimation();
+      }
     }
   },
-    mounted() {
-      new google.maps.places.Autocomplete(this.$refs.from, {componentRestrictions:{country:'ar'}}); // restrict to argentina
-      new google.maps.places.Autocomplete(this.$refs.to , {componentRestrictions:{country:'ar'}}); // restrict to argentina
+  mounted() {
+    new google.maps.places.Autocomplete(this.$refs.from, {
+      componentRestrictions: { country: "ar" }
+    }); // restrict to argentina
+    new google.maps.places.Autocomplete(this.$refs.to, {
+      componentRestrictions: { country: "ar" }
+    }); // restrict to argentina
   }
 };
 </script>

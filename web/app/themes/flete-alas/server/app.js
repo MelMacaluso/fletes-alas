@@ -39,7 +39,8 @@ app.use((req, res, next) => {
 
 
 app.use('/sendSMS', function(req, res){
-  TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.TO_NUMBER, req.body, res);
+  // TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.TO_NUMBER, req.body, res);
+  TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.RENAN_TO_NUMBER, req.body, res);
 });
 
 app.listen(8080, ()=> console.log('up and running my baby on port 8080'));

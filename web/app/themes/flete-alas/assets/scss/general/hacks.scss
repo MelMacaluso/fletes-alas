@@ -1,6 +1,25 @@
 .pac-container {
     margin-top: -3em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    @apply .shadow-lg .border .border-grey-dark;
     @screen md {
         margin-top: -2em;
     }
+}
+
+.pac-item {
+    @apply .px-2 .py-4 .font-sans;
+}
+
+.pac-item-query {
+    @apply .text-blue;
+}
+
+.pac-logo:after {
+    content: "Powered by Google";
+    background-image: none !important;
+    @apply .text-grey-light .text-sm .p-2 h-8;
 }
