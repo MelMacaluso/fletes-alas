@@ -1,6 +1,6 @@
 .header {
     .header__menu {
-        @apply .fixed .flex .flex-grow .pin-y .-pin-r-full .min-w-screen-33 .pt-12 .bg-grey-dark .shadow-md .z-10 .transition-right--ease-in;
+        @apply .fixed .flex .flex-grow .justify-end .pin-y .-pin-r-full .min-w-screen-33 .pt-12 .bg-grey-dark .shadow-md .z-10 .transition-right--ease-in;
         @screen md {
             @apply .relative .min-w-none .pin-none .pt-0 .bg-transparent .shadow-none;
         }
@@ -10,14 +10,14 @@
                 @apply .flex-row;
             }
             li {
-                @apply .mx-2 .mb-2;
+                @apply .mx-4 .mb-2;
                 @screen md {
                     @apply .mb-0;
                 }
                 a {
                     @apply .text-white;
-                    @screen md {
-                        @apply .text-grey-darker
+                    &:hover {
+                        @apply .border-b .border-white;
                     }
                 }
             }

@@ -1,9 +1,9 @@
-<header class="header bg-grey-lighter shadow">
+<header class="header bg-blue-darker shadow-lg">
 
     <div class="flex flex-row p-4 justify-between md:justify-start">
     
         <div class="header__brand">
-            <a href="<?= esc_url( home_url( '/' ) ); ?>" class="text-xl"><?php bloginfo( 'name' ); ?></a>
+            <a href="<?= esc_url( home_url( '/' ) ); ?>" class="text-white text-2xl visited:text-white"><?php bloginfo( 'name' ); ?></a>
         </div>
         <nav class="header__menu">
 			<?php

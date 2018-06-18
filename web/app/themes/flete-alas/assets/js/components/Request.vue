@@ -1,34 +1,34 @@
 <template>
-    <div class="container mx-auto">
-      <div class="relative max-w-sm mx-auto h-128">
+    <div class="container mx-auto relative h-auto md:h-120">
+      <div class="max-w-sm mx-auto">
         <transition name="fade">
             <form v-show="!submitted" @submit.prevent="sendNotification">
                 <div class="flex flex-wrap -mx-4">
-                    <div class="relative w-1/2 px-2 mt-4">
+                    <div class="relative w-full md:w-1/2 px-2 mt-4">
                         <input v-validate="'required|alpha_spaces'" name="name" autocomplete='name' type="text" placeholder="Nombre" :class="[ 'w-full border rounded p-5', errors.has('name') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="name">
                         <transition name="fade">
                             <span class="absolute pin-t pin-l ml-4 mt-1 text-xs text-red-light" v-if="errors.has('name')">Corrige tu nombre</span>
                         </transition>
                     </div>
-                    <div class="relative w-1/2 px-2 mt-4">
+                    <div class="relative w-full md:w-1/2 px-2 mt-4">
                         <input v-validate="'required|numeric|min:6|max:14'" name="tel" autocomplete='tel' type="text" placeholder="Telefono/Mobil" :class="[ 'w-full border rounded p-5', errors.has('tel') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="tel">
                         <transition name="fade">
                             <span class="absolute pin-t pin-l ml-4 mt-1 text-xs text-red-light" v-if="errors.has('tel')">Corrige tu telefono:</span>
                         </transition>
                     </div>
-                    <div class="relative w-1/2 px-2 mt-4">
+                    <div class="relative w-full md:w-1/2 px-2 mt-4">
                         <input ref="from" name="address" autocomplete='street-address' type="text" placeholder="Desde" class="w-full border rounded p-5 border-grey-dark">
                     </div>
-                    <div class="relative w-1/2 px-2 mt-4">
+                    <div class="relative w-full md:w-1/2 px-2 mt-4">
                         <input ref="to" name="address" autocomplete='street-address' type="text" placeholder="Hasta" class="w-full border rounded p-5 border-grey-dark">
                     </div>
-                    <div class="relative w-1/2 px-2 mt-4">
+                    <div class="relative w-full md:w-1/2 px-2 mt-4">
                         <input v-validate="'email'" name="email" autocomplete='email' type="email" placeholder="Email" :class="[ 'w-full border rounded p-5', errors.has('email') ? 'border-red active:border-red focus:border-red bg-red-lightest' : 'border-grey-dark' ]" v-model="email">
                         <transition name="fade">
                             <span class="absolute pin-t pin-l ml-4 mt-1 text-xs text-red-light" v-if="errors.has('email')">Corrige tu email</span>
                         </transition>
                     </div>
-                    <div class="w-1/2 px-2 mt-4">
+                    <div class="w-full md:w-1/2 px-2 mt-4">
                         <flat-pickr v-model="date" :config="config" class="w-full border border-grey-dark rounded p-5" placeholder="Fecha y hora"></flat-pickr>
                     </div>
                 </div>
@@ -143,7 +143,8 @@ export default {
             "73fa7c56b03517b77043a7f6debb789d1b966a32": `${this.tel}`, // Telefono
             "c58a9448026b1bdf0d59cab244c42cdd053c9ae4": `${this.$refs.from.value}`, // desde
             "2b08c44ec10ccc9510be9fd8d0df7674a2eed251": `${this.$refs.to.value}`, // hasta
-            "dc60267b256501217f31455115ebb55a577a7dd2": `${uuidv1()}` // Booking reference
+            "dc60267b256501217f31455115ebb55a577a7dd2": `${uuidv1()}`, // Booking reference
+            "f19415f34822af02040f3b3308b69eadc3eac4fc": `${this.enquiry}`
         })
     },
     sendNotification() {

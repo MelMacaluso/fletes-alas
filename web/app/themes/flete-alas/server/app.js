@@ -1,11 +1,15 @@
 // Utils 
-require('dotenv').config({path: '../../../../../.env'});
+require('dotenv').config({
+  path: '../../../../../.env'
+});
 
 // Pipedrive
 var Pipedrive = require('pipedrive');
 
 // Pipedrive Credentials 
-var pipedrive = new Pipedrive.Client(process.env.PIPEDRIVE_API_TOKEN_HERE, { strictMode: true });
+var pipedrive = new Pipedrive.Client(process.env.PIPEDRIVE_API_TOKEN_HERE, {
+  strictMode: true
+});
 
 // Twilio Credentials 
 var accountSid = process.env.ACCOUNTSID;
@@ -23,7 +27,9 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
 app.use(bodyParser.json())
 
 app.use((req, res, next) => {
@@ -44,10 +50,26 @@ app.use((req, res, next) => {
 })
 
 
-app.use('/sendSMS', function(req, res){
-  // TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.TO_NUMBER, req.body, res);
-  // TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.RENAN_TO_NUMBER, req.body, res);
-  pipedrive.Deals.add(req.body, ()=> console.log('errore ci fu'));
+app.use('/sendSMS', function (req, res) {
+  // TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.TO_NUMBER, req.body, res); // Those are working but let's keep it off
+  // TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.RENAN_TO_NUMBER, req.body, res); // Those are working but let's keep it off
+  pipedrive.Deals.add(req.body, () => console.log('Sent to pipedrive'));
 });
 
-app.listen(8080, ()=> console.log('up and running my baby on port 8080'));
+app.use('/findMyBooking', function (req, res) {
+  // pipedrive.SearchResults.field(req.body, (err, result) => res.send(console.log(result[0].id))); // Test only
+  pipedrive.SearchResults.field(req.body, (err, result) => {
+    // const dealId = result[0].id;
+    // pipedrive.Deals.get(result[0].id, (err, deal) => res.send(deal));
+    if (result[0]) {
+    const dealId = result[0].id;
+    pipedrive.Deals.get(dealId, (err, deal) => res.send(deal));
+    } else {
+      res.send('No encontramos ninguna mudanza con tu numero de reserva.')
+    }
+  })
+});
+
+// sudo nginx -s reload
+
+app.listen(8080, () => console.log('up and running my baby on port 8080'));

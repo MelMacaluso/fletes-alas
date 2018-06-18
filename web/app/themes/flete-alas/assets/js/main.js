@@ -4,6 +4,9 @@ import 'vue2-animate/dist/vue2-animate.min.css';
 // Vue Components
 import Request from './components/Request.vue';
 Vue.component('request', Request);
+import FindMyBooking from './components/FindMyBooking.vue';
+Vue.component('findmybooking', FindMyBooking);
+
 
 const veeConfig = {
     delay: 333,

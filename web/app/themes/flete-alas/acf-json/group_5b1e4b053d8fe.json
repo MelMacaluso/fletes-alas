@@ -24,6 +24,15 @@
                     "sub_fields": [],
                     "min": "",
                     "max": ""
+                },
+                "5b270494d6c54": {
+                    "key": "5b270494d6c54",
+                    "name": "find_my_booking",
+                    "label": "Find my booking",
+                    "display": "block",
+                    "sub_fields": [],
+                    "min": "",
+                    "max": ""
                 }
             },
             "button_label": "Add Row",
@@ -48,5 +57,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1529085734
+    "modified": 1529283740
 }
