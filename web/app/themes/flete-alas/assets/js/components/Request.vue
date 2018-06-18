@@ -48,11 +48,11 @@
           <div v-show="submitted" class="absolute pin m-auto flex flex-col justify-center text-center">
             <p class="bg-white text-lg text-black rounded shadow-lg px-2 py-4">Gracias, un fletero te va a contactar al mas pronto para organisar tu mudanza.</p>
               <div ref="animationWrapper" class="flex flex-col justify-end relative h-32 mb-4 border-b overflow-hidden fading-out">
-                  <div ref="truck" class="absolute sliding" style="left:33%;">
-                      <i class="fas fa-truck text-white text-10xl text-shadow"></i>
-                  </div>
                   <div ref="envelope" class="absolute sliding pb-8" style="left:0;">
                       <i class="fas fa-envelope text-orange-light text-5xl text-shadow"></i>
+                  </div>
+                  <div ref="truck" class="absolute sliding" style="left:33%;">
+                      <i class="fas fa-truck text-white text-10xl text-shadow"></i>
                   </div>
               </div>
           </div>
@@ -68,7 +68,6 @@
 .fading-out {
   transition: 1s border-color ease-out;
 }
-
 </style>
 
 <script>
@@ -77,6 +76,8 @@ import axios from "axios";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/themes/airbnb.css";
 import "flatpickr/dist/flatpickr.css";
+
+import uuidv1 from "uuid/v1";
 
 export default {
   data: () => ({
@@ -89,7 +90,7 @@ export default {
     config: {
       altFormat: "M j, Y h i K",
       altInput: true,
-      dateFormat: "Y-m-d",
+      dateFormat: "Y-m-d H:i",
       enableTime: true
     }
   }),
@@ -106,9 +107,12 @@ export default {
         this.$refs.truck.style.left = "150%";
       }, 2750);
       setTimeout(() => {
-        this.$refs.animationWrapper.classList.remove('border-white');
-        this.$refs.animationWrapper.classList.add('border-transparent');
+        this.$refs.animationWrapper.classList.remove("border-white");
+        this.$refs.animationWrapper.classList.add("border-transparent");
       }, 3000);
+    },
+    OneAdayMaxSubmissions() {
+      document.cookie = "sentNotification=; max-age=86400;";
     },
     sendSMS() {
       console.log("sms Sent");
@@ -129,16 +133,35 @@ export default {
       //       console.log(error);
       //     });
     },
+    sendToPipedrive() {
+        let [date, time] = this.date.split(' ');
+        axios
+        .post("/sendSMS", {
+            "title": `${this.name}`,
+            "47947b83d91c37b34015d1bfa07bb8a650a952eb": `${date}`, // Date of moving, Fecha mudanza 
+            "6ef593f2be5ac7ade9d88f7449d64cf2ef47b2c6": `${time}`, // Time of moving, Hora mudanza
+            "73fa7c56b03517b77043a7f6debb789d1b966a32": `${this.tel}`, // Telefono
+            "c58a9448026b1bdf0d59cab244c42cdd053c9ae4": `${this.$refs.from.value}`, // desde
+            "2b08c44ec10ccc9510be9fd8d0df7674a2eed251": `${this.$refs.to.value}`, // hasta
+            "dc60267b256501217f31455115ebb55a577a7dd2": `${uuidv1()}` // Booking reference
+        })
+    },
     sendNotification() {
+        
       if (this.name != "") {
         // name is required so that'd do
         this.submitted = !this.submitted;
-        this.sendSMS();
+        if (document.cookie.indexOf("sentNotification=") === -1) {
+          this.sendSMS();
+        }
+        this.sendToPipedrive();
+        this.OneAdayMaxSubmissions();
         this.envelopeTruckAnimation();
       }
     }
   },
   mounted() {
+    console.log(uuidv1());
     new google.maps.places.Autocomplete(this.$refs.from, {
       componentRestrictions: { country: "ar" }
     }); // restrict to argentina

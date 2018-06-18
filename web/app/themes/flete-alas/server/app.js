@@ -1,6 +1,12 @@
 // Utils 
 require('dotenv').config({path: '../../../../../.env'});
 
+// Pipedrive
+var Pipedrive = require('pipedrive');
+
+// Pipedrive Credentials 
+var pipedrive = new Pipedrive.Client(process.env.PIPEDRIVE_API_TOKEN_HERE, { strictMode: true });
+
 // Twilio Credentials 
 var accountSid = process.env.ACCOUNTSID;
 var authToken = process.env.AUTHTOKEN;
@@ -40,7 +46,8 @@ app.use((req, res, next) => {
 
 app.use('/sendSMS', function(req, res){
   // TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.TO_NUMBER, req.body, res);
-  TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.RENAN_TO_NUMBER, req.body, res);
+  // TwilioSMS.sendSMS(client, process.env.FROM_NUMBER, process.env.RENAN_TO_NUMBER, req.body, res);
+  pipedrive.Deals.add(req.body, ()=> console.log('errore ci fu'));
 });
 
 app.listen(8080, ()=> console.log('up and running my baby on port 8080'));
