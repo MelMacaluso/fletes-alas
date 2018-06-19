@@ -83,7 +83,7 @@ app.use('/booking/cancel', function (req, res) {
 
 app.use('/booking/update', function (req, res) {
   // console.log(req.body);
-  pipedrive.Deals.update(req.body.update.id ,req.body, () => console.log('Updated in pipedrive'));
+  pipedrive.Deals.update(req.body.update.id ,req.body, () => res.send());
 });
 
 
