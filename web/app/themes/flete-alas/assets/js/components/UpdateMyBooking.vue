@@ -104,9 +104,8 @@ export default {
           "c58a9448026b1bdf0d59cab244c42cdd053c9ae4": `${this.$refs.from.value}`, // desde
           "2b08c44ec10ccc9510be9fd8d0df7674a2eed251": `${this.$refs.to.value}`, // hasta
           "f19415f34822af02040f3b3308b69eadc3eac4fc": `${this.enquiry}`
-        }
-        )
-      .then(() => {
+        })
+      .then( () => {
           //   console.log(response.data);
           this.dealUpdated = !this.dealUpdated;
         })
