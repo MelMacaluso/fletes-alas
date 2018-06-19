@@ -56,7 +56,7 @@ app.use('/sendSMS', function (req, res) {
   pipedrive.Deals.add(req.body, () => console.log('Sent to pipedrive'));
 });
 
-app.use('/findMyBooking', function (req, res) {
+app.use('/booking/find', function (req, res) {
   // pipedrive.SearchResults.field(req.body, (err, result) => res.send(console.log(result[0].id))); // Test only
   pipedrive.SearchResults.field(req.body, (err, result) => {
     // const dealId = result[0].id;
@@ -69,6 +69,23 @@ app.use('/findMyBooking', function (req, res) {
     }
   })
 });
+
+app.use('/booking/cancel', function (req, res) {
+  pipedrive.SearchResults.field(req.body, (err, result) => {
+    if (result[0]) {
+    const dealId = result[0].id;
+    pipedrive.Deals.update(dealId, { "status": "lost", "lost_reason" : "Cancelada por el cliente"} , () => res.send());
+    } else {
+      res.send('No pudimos cancelar tu deal.')
+    }
+  })
+});
+
+app.use('/booking/update', function (req, res) {
+  // console.log(req.body);
+  pipedrive.Deals.update(req.body.update.id ,req.body, () => console.log('Updated in pipedrive'));
+});
+
 
 // sudo nginx -s reload
 

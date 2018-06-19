@@ -80,6 +80,7 @@ import "flatpickr/dist/flatpickr.css";
 import uuidv1 from "uuid/v1";
 
 export default {
+  name: 'request',
   data: () => ({
     submitted: false,
     name: "",
@@ -148,7 +149,6 @@ export default {
         })
     },
     sendNotification() {
-        
       if (this.name != "") {
         // name is required so that'd do
         this.submitted = !this.submitted;
