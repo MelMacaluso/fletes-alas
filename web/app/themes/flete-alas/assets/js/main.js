@@ -6,7 +6,8 @@ import Request from './components/Request.vue';
 Vue.component('request', Request);
 import FindMyBooking from './components/FindMyBooking.vue';
 Vue.component('findmybooking', FindMyBooking);
-
+import CalculateBooking from './components/CalculateBooking.vue';
+Vue.component('calculatebooking', CalculateBooking);
 
 const veeConfig = {
     delay: 333,
