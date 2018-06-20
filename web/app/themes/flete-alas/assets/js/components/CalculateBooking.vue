@@ -67,15 +67,17 @@ export default {
   },
   methods: {
     calculateDistance() {
+      const mainHub = `La Plaza, Corrientes, Rosario, Santa Fe Province, Argentina`; // that fake address should be a .env
       const from = `${this.$refs.from.value}`;
       const to = `${this.$refs.to.value}`;
       new google.maps.DistanceMatrixService().getDistanceMatrix(
         {
-          origins: [from],
+        //   origins: [from],
+          origins: [mainHub ,from],
           destinations: [to],
           travelMode: "DRIVING",
         }, (response, status) => {
-            this.responseData = response.rows[0].elements[0].distance.text;
+            this.responseData = response.rows[0].elements[0].distance.text; // we need a foreach for rows as to sum the distances
         });
     }
   },
